@@ -1,0 +1,52 @@
+<!-- targetNamespace : pour pouvoir utiliser ce prefixe dans un fichier xml -->
+<!-- xmlns:bib="biblio" : pour que le prefixe bib soit lie au namespace biblio -->
+<xs:schema attributeFormDefault="unqualified" 
+			elementFormDefault="qualified"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="biblio"
+			xmlns:bib="biblio"
+			>
+  <xs:complexType name="auteursType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="auteur" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="livreType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="auteur" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ouvrageType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="titre" minOccurs="1"/>
+      <xs:element type="bib:auteursType" name="auteurs" minOccurs="1"/>
+      <xs:element type="xs:string" name="editeur" minOccurs="1"/>
+      <xs:element type="xs:float" name="prix" minOccurs="1"/>
+      <xs:element type="bib:referencesType" name="references" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="isbn" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="referencesType">
+    <xs:sequence>
+      <xs:element type="bib:livreType" name="livre" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:element name="bibliotheque">
+  	<xs:complexType>
+	    <xs:sequence>
+	      <xs:element type="bib:ouvrageType" name="ouvrage" maxOccurs="unbounded" minOccurs="0"/>
+	    </xs:sequence>
+    </xs:complexType>
+    <!-- clé(s) Start -->
+	<xs:key name="ouvrageKey" id="ouvrageKey">
+		<xs:selector xpath="bibliotheque/ouvrage" />
+		<xs:field xpath="@isbn" />
+	</xs:key>
+	<xs:keyref name="isbnKey" refer="bib:ouvrageKey">
+		<xs:selector xpath="bibliotheque/ouvrage/references/livre" />
+		<xs:field xpath="@isbn" />
+	</xs:keyref>
+	<!-- clé(s) Stop -->
+  </xs:element>
+</xs:schema>

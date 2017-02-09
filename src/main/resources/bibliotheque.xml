@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns="biblio" : valeur du targetNamespace du xsd  -->
+<!-- xsi:schemaLocation : valeur du targetNamespace du xsd + espace + path du .xsd -->
+<bibliotheque xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns="biblio"
+			xsi:schemaLocation="biblio bibliotheque.xsd"
+			>
+	<ouvrage isbn="1">
+		<titre>titre 1</titre>
+		<auteurs>
+			<auteur>auteur 1</auteur>
+			<auteur>auteur 2</auteur>
+		</auteurs>
+		<editeur>editeur 1</editeur>
+		<prix>1</prix>
+	</ouvrage>
+	<ouvrage isbn="2">
+		<titre>titre 2</titre>
+		<auteurs>
+			<auteur>auteur 2</auteur>
+		</auteurs>
+		<editeur>editeur 2</editeur>
+		<prix>2</prix>
+		<references>
+			<livre isbn="1"/>
+		</references>
+	</ouvrage>
+	<ouvrage isbn="3210123">
+		<titre>titre 3</titre>
+		<auteurs>
+			<auteur>auteur 1</auteur>
+			<auteur>auteur 2</auteur>
+		</auteurs>
+		<editeur>editeur 1</editeur>
+		<prix>3</prix>
+		<references>
+			<livre isbn="1"/>
+			<livre isbn="2"/>
+		</references>
+	</ouvrage>
+</bibliotheque>
